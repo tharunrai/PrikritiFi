@@ -1,0 +1,1 @@
+export default function SatelliteToggle() { return <div>Toggle</div>; }

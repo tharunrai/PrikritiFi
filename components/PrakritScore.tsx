@@ -1,0 +1,1 @@
+export default function PrakritScore() { return <div>Score</div>; }

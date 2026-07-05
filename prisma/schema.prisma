@@ -1,0 +1,54 @@
+model User {
+  id              String   @id @default(uuid())
+  supabase_id     String   @unique
+  phone           String?
+  name            String?
+  prakriti_score  Int      @default(50)
+  created_at      DateTime @default(now())
+
+  photo_submissions  PhotoSubmission[]
+  loans              Loan[]
+  insurance_claims   InsuranceClaim[]
+  circle_memberships CircleMember[]
+}
+
+model PhotoSubmission {
+  id          String   @id @default(uuid())
+  user_id     String
+  user        User     @relation(fields: [user_id], references: [id])
+  result      String   // "Healthy" or "Stressed"
+  confidence  Float
+  location    String?  // mock Vidarbha coordinates
+  tx_hash     String?
+  created_at  DateTime @default(now())
+}
+
+model Loan {
+  id         String   @id @default(uuid())
+  user_id    String
+  user       User     @relation(fields: [user_id], references: [id])
+  amount     Int
+  purpose    String
+  status     String   @default("Active")
+  tx_hash    String?
+  created_at  DateTime @default(now())
+}
+
+model InsuranceClaim {
+  id         String   @id @default(uuid())
+  user_id    String
+  user       User     @relation(fields: [user_id], references: [id])
+  amount     Int
+  status     String   @default("Triggered")
+  tx_hash    String?
+  created_at  DateTime @default(now())
+}
+
+model CircleMember {
+  id                 String   @id @default(uuid())
+  user_id            String
+  user               User     @relation(fields: [user_id], references: [id])
+  reputation_score   Int      @default(70)
+  verification_count Int      @default(0)
+  status             String   @default("Active")
+}

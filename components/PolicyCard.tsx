@@ -1,0 +1,1 @@
+export default function PolicyCard() { return <div>Policy Card</div>; }
