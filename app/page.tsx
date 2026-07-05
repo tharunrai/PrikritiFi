@@ -1,11 +1,16 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Upload, FileText, Activity, ShieldCheck, UserCheck } from 'lucide-react';
 import clsx from 'clsx';
 
 export default function Dashboard() {
   const [satelliteView, setSatelliteView] = useState<'sar' | 'optical'>('sar');
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <div className="w-full h-screen bg-[#0F172A] text-[#F8FAFC] font-sans overflow-hidden flex flex-col">
@@ -226,7 +231,7 @@ export default function Dashboard() {
           <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse"></span> TensorFlow.js MobileNet V2</span>
         </div>
         <div className="font-mono">
-          TIMESTAMP: {new Date().toISOString().replace('T', ' ').substring(0, 19)} | VIDARBHA_NODE_A
+          TIMESTAMP: {mounted ? new Date().toISOString().replace('T', ' ').substring(0, 19) : 'YYYY-MM-DD HH:MM:SS'} | VIDARBHA_NODE_A
         </div>
       </footer>
     </div>
